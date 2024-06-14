@@ -1,0 +1,270 @@
+@font-face {
+    font-family: 'NEB';
+    src: url('../../assets/noiretblanc.ttf');
+  }
+
+  @font-face {
+    font-family: 'ITC';
+    src: url('../../assets/itclight.ttf');
+  }
+  @font-face {
+    font-family: 'Univers';
+    src: url('../../assets/UniversCnRg.ttf');
+  }
+
+  @font-face {
+    font-family: 'UniversBold';
+    src: url('../../assets/UniversCnBold.ttf');
+  }
+  /* app-container */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    background-color: #f7f5ef;
+    font-family: 'NEB', Helvetica, sans-serif;
+  }
+  
+  .header {
+    position: fixed;
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: #242424;
+    color: #ffffff;
+    font-family: 'ITC';
+    @media (max-width: 800px){
+        font-size: 1.2rem;
+    }
+  }
+
+  .header p,h2{
+    margin: 0;
+  }
+  .header p{
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .wine-list {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; /* Adjust if needed */
+    @media (max-width:800px){
+        margin-top: 10px;
+    }
+  }
+  
+  .wine-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #f7f5ef;
+  }
+  
+  .wine-image-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .product-description{
+    width: 80%;
+    display: flex;
+    margin-left: 10%;
+    font-size: 1.2rem;
+    font-family: 'Univers';
+    justify-content: center;
+    color: #4b4b4b;
+    @media (max-width:800px){
+        font-size: 1rem;
+    }
+  }
+  
+  .wine-details-container {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .wine-details {
+    width: 60%;
+    color: #000;
+    margin-top: 10%;
+    @media (max-width:800px){
+        margin-top: 0;
+    }
+  }
+  
+  .wine-image-right {
+    width: 55%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    @media (max-width: 800px){
+        height: 50vh;
+    }
+  }
+  
+  .characteristics {
+    display: flex;
+    justify-content: center;
+    color: #242424;
+    margin-bottom: 10px;
+  }
+  .characteristics h1{
+    font-size: 1.5rem !important;
+    font-family: 'UniversBold' !important;
+  }
+  
+  .wine-authenticity {
+    display: inline-block;
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .wine-authenticity p {
+    color: #000 !important;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+    font-size: 0.8rem !important;
+  }
+  
+  .wine-details h1 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+    font-family: 'Univers';
+    @media(max-width: 800px){
+        font-size: 1.2rem;
+    }
+  }
+  
+  .wine-details p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    top: 0;
+    margin-top: 5px;
+    padding-bottom: 0;
+    @media(max-width: 800px){
+        font-size: .9rem;
+    }
+  }
+  
+  .wine-detail {
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-size: 1rem;
+    color: #000;
+    margin: 0;
+    font-weight: 700;
+  }
+  
+  .description {
+    font-size: 1rem;
+    color: #000;
+    margin-bottom: 15px;
+    top: 0;
+  }
+  
+  .similar {
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+  
+  .similar-title {
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0;
+    font-family: 'UniversBold';
+    font-weight: 700;
+  }
+  
+  .similar h5 {
+    font-size: 1rem;
+    color: #000;
+    margin-bottom: 15px;
+    padding-top: 0;
+  }
+  
+  .serving-temperature {
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'UniversBold';
+  }
+  
+  .serving-temperature h1 {
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .taste{
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'UniversBold';
+  }
+  .taste h1 {
+    font-size: 1.5rem;
+    color: #000;
+    margin: 0;
+    font-weight: 700;
+  }
+  .taste h2 {
+    font-size: 1rem;
+    color: #000;
+    margin-left: 20px;
+    margin-top: 5px;
+    font-family: 'NEB';
+  }
+  
+  .serving-temperature h2 {
+    font-size: 1rem;
+    color: #000;
+    margin-left: 20px;
+    margin-top: 5px;
+    font-family: 'NEB';
+  }
+
+
+  .reviews {
+    color: #242424;
+  }
+  
+  footer {
+    font-size: .3rem;
+    font-weight: 400;
+    font-family: "Univers";
+    text-align: center;
+    color: #000;
+  }
+  
