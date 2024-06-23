@@ -16,11 +16,31 @@
     font-family: 'UniversBold';
     src: url('../../assets/UniversCnBold.ttf');
   }
+
+@font-face {
+  font-family: 'HubotReg';
+  src: url('../../assets/HubotSans-Regular.ttf');
+}
+@font-face {
+  font-family: 'HubotEBold';
+  src: url('../../assets/HubotSans-SemiBold.ttf');
+}
+
+
+  .app-container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .header {
+    font-family: 'Arial', sans-serif;
+  }
   /* app-container */
   .app-container {
     display: flex;
     flex-direction: column;
     height: auto;
+    width: 100%;
+    overflow-x: hidden;
     min-height: 100vh;
     background-color: #f7f5ef;
     font-family: 'NEB', Helvetica, sans-serif;
@@ -36,7 +56,7 @@
     align-items: center;
     padding: 0;
     margin: 0;
-    background-color: #242424;
+    background-color:#242424; //red wine color
     color: #ffffff;
     font-family: 'ITC';
     @media (max-width: 800px){
@@ -71,11 +91,12 @@
     margin-bottom: 20px;
     border-radius: 10px;
     background-color: #f7f5ef;
+    font-family: 'HubotReg';
   }
   
   .wine-image-top {
     width: 100%;
-    height: auto;
+    height: 40vh;
     object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -98,26 +119,38 @@
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    padding-left: 20px;
     padding-right: 20px;
+    padding-left: 20px;
+    img{
+      height: auto;
+    }
+    @media (max-width: 800px){
+      height: 50%;
+      img {
+        height: 50vh;
+      }
+    }
+   
   }
   
   .wine-details {
-    width: 60%;
+    width: 50%;
     color: #000;
     margin-top: 10%;
+    height: 100%;
     @media (max-width:800px){
-        margin-top: 0;
+        margin-top: 20px;
+        text-align: start;
     }
   }
   
   .wine-image-right {
-    width: 55%;
+    width: 50%;
     height: auto;
     object-fit: cover;
     border-radius: 10px;
     @media (max-width: 800px){
-        height: 50vh;
+        height: 100%;
     }
   }
   
@@ -151,20 +184,23 @@
     font-weight: bold;
     color: #000;
     margin: 0;
-    font-family: 'Univers';
+    font-family: 'HubotEBold', sans-serif;
     @media(max-width: 800px){
         font-size: 1.2rem;
     }
   }
   
   .wine-details p {
+    font-family: 'HubotReg', sans-serif;
     font-size: 1rem;
     margin-bottom: 15px;
     top: 0;
     margin-top: 5px;
     padding-bottom: 0;
+    color: #5c5c5c;
     @media(max-width: 800px){
-        font-size: .9rem;
+        font-size: 1rem;
+        font-weight: bolder;
     }
   }
   
@@ -183,11 +219,11 @@
     font-size: 1rem;
     color: #000;
     margin-bottom: 15px;
+    font-weight: bolder;
     top: 0;
   }
   
   .similar {
-    padding: 20px;
     box-sizing: border-box;
     margin-top: 10px;
   }
@@ -198,6 +234,7 @@
     margin: 0;
     font-family: 'UniversBold';
     font-weight: 700;
+    margin-bottom: 2%;
   }
   
   .similar h5 {
@@ -244,7 +281,7 @@
     color: #000;
     margin-left: 20px;
     margin-top: 5px;
-    font-family: 'NEB';
+    font-family: 'HubotReg';
   }
   
   .serving-temperature h2 {
@@ -252,7 +289,7 @@
     color: #000;
     margin-left: 20px;
     margin-top: 5px;
-    font-family: 'NEB';
+    font-family: 'HubotReg';
   }
 
 

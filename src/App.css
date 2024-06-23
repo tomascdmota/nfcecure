@@ -1,6 +1,9 @@
 #root {
   margin: 0 auto;
   text-align: center;
+  width: 100%; /* Ensure it takes full width */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  box-sizing: border-box; /* Include padding and border in width */
 }
 
 .logo {
