@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'NEB';
+    src: url('./assets/noiretblanc.ttf');
+  }
+  
+  @font-face {
+    font-family: 'ITC';
+    src: url('./assets/itclight.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Univers';
+    src: url('./assets/UniversCnRg.ttf');
+  }
+  
+  @font-face {
+    font-family: 'UniversBold';
+    src: url('./assets/UniversCnBold.ttf');
+  }
+  
+  @font-face {
+    font-family: 'HubotReg';
+    src: url('./assets/HubotSans-Regular.ttf');
+  }
+  
+  @font-face {
+    font-family: 'HubotEBold';
+    src: url('./assets/HubotSans-SemiBold.ttf');
+  }
+  
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  

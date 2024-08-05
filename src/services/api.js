@@ -3,8 +3,8 @@ import axios from 'axios'
 const BASE_URL = 'http://localhost:5173/'
 
 const ENDPOINTS = {
-    products: `/products`,
-    product_info: `/products/:productId`,
+    products: `/product`,
+    product_info: `/product/:productId`,
     dashboard: `/dashboard`
 }
 
