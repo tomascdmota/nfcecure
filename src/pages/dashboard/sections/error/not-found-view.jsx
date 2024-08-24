@@ -5,31 +5,15 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from '../../routes/components';
 
-import Logo from '../../components/logo';
 import illustration404 from '/assets/illustrations/illustration_404.svg';
 
 // ----------------------------------------------------------------------
 
 export default function NotFoundView() {
-  const renderHeader = (
-    <Box
-      component="header"
-      sx={{
-        top: 0,
-        left: 0,
-        width: 1,
-        lineHeight: 0,
-        position: 'fixed',
-        p: (theme) => ({ xs: theme.spacing(3, 3, 0), sm: theme.spacing(5, 5, 0) }),
-      }}
-    >
-      <Logo />
-    </Box>
-  );
+
 
   return (
     <>
-      {renderHeader}
 
       <Container>
         <Box
@@ -64,7 +48,7 @@ export default function NotFoundView() {
             }}
           />
 
-          <Button href="/" size="large" variant="contained" component={RouterLink}>
+          <Button href="/dashboard" size="large" variant="contained" component={RouterLink}>
             Go to Home
           </Button>
         </Box>

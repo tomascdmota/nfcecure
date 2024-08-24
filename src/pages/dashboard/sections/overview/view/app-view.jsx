@@ -1,9 +1,11 @@
 import { faker } from '@faker-js/faker';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
+import {jwtDecode} from 'jwt-decode';
 import Iconify from '../../../components/iconify';
 
 import AppTasks from '../app-tasks';
@@ -15,15 +17,44 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import WMB from '../whatsinmybottle.png'
+import { Height } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const navigate = useNavigate();
+  const access_token = localStorage.getItem('access_token');
+
+  useEffect(() => {
+    if (!access_token) {
+      navigate('/auth/login');
+      return;
+    }
+
+    try {
+      const decodedToken = jwtDecode(access_token);
+      const currentTime = Date.now() / 1000; // Convert to seconds
+
+      if (decodedToken.exp < currentTime) {
+        // Token is expired
+        localStorage.removeItem('access_token');
+        navigate('/auth/login');
+      } else {
+        console.log('Token is valid:', decodedToken);
+        // Continue to render dashboard content
+      }
+    } catch (error) {
+      console.error('Invalid token:', error);
+      localStorage.removeItem('access_token');
+      navigate('/auth/login');
+    }
+  }, [access_token, navigate]);
+
+
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi, Welcome back 👋
-      </Typography>
+    <Container maxWidth="xl" >
+    <img style={{ height: '90px', marginBottom:"40px" }}  src={WMB} alt="WMB Logo" />
 
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>

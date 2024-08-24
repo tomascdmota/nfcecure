@@ -25,10 +25,10 @@ const navConfig = [
   {
     title: 'settings',
     path: '/dashboard/settings',
-    icon: icon('ic_blog'),
+    icon: icon('ic_settings'),
   },
   {
-    title: 'Marketing (CRM)',
+    title: 'Marketing',
     path: '/dashboard/marketing',
     icon: icon('ic_lock'),
   },

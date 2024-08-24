@@ -18,7 +18,8 @@ function App() {
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
-        {/* Add more routes as needed */}
+        <Route path="/" element={<Dashboard />}/> 
+        {/* Change to the landing page instead of dashboard */}
       </Routes>
     </Router>
     </HelmetProvider>

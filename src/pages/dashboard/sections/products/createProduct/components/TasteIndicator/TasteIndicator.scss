@@ -1,0 +1,56 @@
+.taste-indicator {
+    position: relative;
+    width: 80%;
+    left:10%;
+    height: 40px; /* Adjust height as needed */
+    margin-top: 10px; /* Add margin for spacing */
+    @media (max-width: 800px){
+        width: 100%;
+        left:0;
+    }
+  }
+  
+  .line {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 70%; /* Leave space on both sides for labels */
+    height: 2px; /* Fine horizontal line */
+    background-color: #8e8c8c; /* Line color */
+    transform: translateY(-50%);
+    @media (max-width: 800px){
+     left: 15%;
+     width: 70%;   
+    }
+  }
+  
+  .indicator {
+    position: absolute;
+    top: 50%;
+    width: 30px; /* Indicator width */
+    height: 15px; /* Indicator height */
+    background-color: rgb(56, 56, 56); /* Indicator color */
+    border-radius: 30%; /* Make the indicator a circle */
+    transform: translate(-50%, -50%);
+    @media (max-width: 800px){
+      width: 35px;
+      height: 20px;
+    }
+  }
+  
+  .label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem; /* Adjust font size as needed */
+    color: #333; /* Label color */
+  }
+  
+  .label.left {
+    left: 0;
+  }
+  
+  .label.right {
+    right: 0;
+  }
+  

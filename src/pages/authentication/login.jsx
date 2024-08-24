@@ -1,84 +1,167 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios'
+import {jwtDecode} from 'jwt-decode';
+import { login } from '../../services/auth'; // Adjust the path as necessary
 
-function Login() {
+
+
+
+
+
+
+function Copyright(props) {
   return (
-    <div className="mx-auto md:h-screen flex flex-col justify-center items-center px-6 pt-8 pt:mt-0">
-      <Link to="/" className="text-2xl font-semibold flex justify-center items-center mb-8 lg:mb-10">
-        <img src="/images/logo.svg" className="h-10 mr-4" alt="Windster Logo" />
-        <span className="self-center text-2xl font-bold whitespace-nowrap">Windster</span> 
-      </Link>
-      {/* Card */}
-      <div className="bg-white shadow rounded-lg md:mt-0 w-full sm:max-w-screen-sm xl:p-0">
-        <div className="p-6 sm:p-8 lg:p-16 space-y-8">
-          <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">
-            Create a Free Account
-          </h2>
-          <form className="mt-8 space-y-6" action="#">
-            <div>
-              <label htmlFor="email" className="text-sm font-medium text-gray-900 block mb-2">Your email</label>
-              <input 
-                type="email" 
-                name="email" 
-                id="email" 
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" 
-                placeholder="name@company.com" 
-                required 
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="text-sm font-medium text-gray-900 block mb-2">Your password</label>
-              <input 
-                type="password" 
-                name="password" 
-                id="password" 
-                placeholder="••••••••" 
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" 
-                required 
-              />
-            </div>
-            <div>
-              <label htmlFor="confirm-password" className="text-sm font-medium text-gray-900 block mb-2">Confirm password</label>
-              <input 
-                type="password" 
-                name="confirm-password" 
-                id="confirm-password" 
-                placeholder="••••••••" 
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" 
-                required 
-              />
-            </div>
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input 
-                  id="remember" 
-                  aria-describedby="remember" 
-                  name="remember" 
-                  type="checkbox" 
-                  className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded" 
-                  required 
-                />
-              </div>
-              <div className="text-sm ml-3">
-                <label htmlFor="remember" className="font-medium text-gray-900">
-                  I accept the <a href="#" className="text-teal-500 hover:underline">Terms and Conditions</a>
-                </label>
-              </div>
-            </div>
-            <button 
-              type="submit" 
-              className="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-base px-5 py-3 w-full sm:w-auto text-center"
-            >
-              Create account
-            </button>
-            <div className="text-sm font-medium text-gray-500">
-              Already have an account? <Link to="/authentication/sign-in" className="text-teal-500 hover:underline">Login here</Link>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://nfcecure.com/" target="_blank">
+        NFCecure
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
-export default Login;
+
+
+const defaultTheme = createTheme();
+export default function SignIn() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+      try {
+        // Decode token to get user information
+        const decodedToken = jwtDecode(token);
+
+        if (decodedToken.user_id ) {
+          navigate('/dashboard');
+        } else {
+          throw new Error('User ID not found in token');
+        }
+      } catch (error) {
+        // Handle token decoding errors
+        console.error('Invalid token:', error);
+        localStorage.removeItem('access_token'); // Remove invalid token
+      }
+    }
+  }, [navigate]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Get form data
+    const data = new FormData(event.currentTarget);
+    const username = data.get('username');
+    const password = data.get('password');
+
+    // Prepare data to send
+    const requestData = {
+      username,
+      password,
+    };
+
+    try {
+      // Send POST request using the TypeScript service
+      const responseData = await login(requestData.username, requestData.password);
+      
+      if (responseData.access_token) {
+        localStorage.setItem('access_token', responseData.access_token);
+        navigate('/dashboard');
+      } else {
+        console.error('No access token found in response');
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('Error:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+  );
+}

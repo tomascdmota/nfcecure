@@ -16,12 +16,14 @@ import { RouterLink } from '../../routes/components';
 import { useResponsive } from '../../hooks/use-responsive';
 
 import { account } from '../../_mock/account';
-
-import Logo from '../../components/logo';
+  
+import WMBLogo from '/src/pages/dashboard/layouts/dashboard/D-05.png';
+import drawing from '/src/pages/dashboard/layouts/dashboard/E-04.png'
 import Scrollbar from '../../components/scrollbar';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
+import './fonts.css'
 
 // ----------------------------------------------------------------------
 
@@ -47,15 +49,16 @@ export default function Nav({ openNav, onCloseNav }) {
         display: 'flex',
         borderRadius: 1.5,
         alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+        color:"white",
+        bgcolor: (theme) => alpha("#661D37", 0.32),
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle1" sx={{color:"text.secondary"}}>{account.displayName}</Typography>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body1" sx={{ color: '#4C1B31' }}>
           {account.role}
         </Typography>
       </Box>
@@ -63,7 +66,9 @@ export default function Nav({ openNav, onCloseNav }) {
   );
 
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
+        
+              
+      <Stack component="nav" spacing={1.2} sx={{ px: 3 }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
       ))}
@@ -75,8 +80,8 @@ export default function Nav({ openNav, onCloseNav }) {
       <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
         <Box
           component="img"
-          src="/assets/illustrations/illustration_avatar.png"
-          sx={{ width: 100, position: 'absolute', top: -50 }}
+          src={drawing}
+          sx={{ width: 150, position: 'absolute', top: -50 }}
         />
 
         <Box sx={{ textAlign: 'center' }}>
@@ -103,6 +108,7 @@ export default function Nav({ openNav, onCloseNav }) {
     <Scrollbar
       sx={{
         height: 1,
+        backgroundColor: "#822341",
         '& .simplebar-content': {
           height: 1,
           display: 'flex',
@@ -110,7 +116,12 @@ export default function Nav({ openNav, onCloseNav }) {
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
+      <Box
+        component="img"
+        src={WMBLogo}
+        alt="WMB Logo"
+        sx={{ mt: 3, ml: 10, width: '120px', height: 'auto' }}
+      />
 
       {renderAccount}
 
@@ -127,6 +138,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        
       }}
     >
       {upLg ? (
@@ -174,23 +186,30 @@ function NavItem({ item }) {
       component={RouterLink}
       href={item.path}
       sx={{
-        minHeight: 44,
-        borderRadius: 0.75,
-        typography: 'body2',
-        color: 'text.secondary',
-        textTransform: 'capitalize',
-        fontWeight: 'fontWeightMedium',
+        minHeight: { xs: 20, sm: 25, md: 30 }, // Smaller height on small screens
+        borderRadius: { xs: '40px', sm: '60px', md: '80px' }, // Smaller radius on small screens
+        typography: { xs: 'body3', sm: 'body2' }, // Smaller font on smaller screens
+        color: '#822341',
+        textTransform: "uppercase",
+        fontWeight: "bold",
+        fontFamily: 'Montserrat-Bold !important', // Apply Montserrat-Bold font
+        backgroundColor: "#FFDCE4",
+        '&:hover': {
+          color: "#822341",
+          backgroundColor: "#EAB9C8",
+        },
         ...(active && {
           color: 'primary.main',
           fontWeight: 'fontWeightSemiBold',
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          bgcolor: (theme) => alpha('#DADAF7', 1),
           '&:hover': {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
+            color: '#FFF9F5',
+            bgcolor: (theme) => alpha("#DADAF7", 0.16),
           },
         }),
       }}
     >
-      <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
+      <Box component="span" sx={{ width: 32, height: 32, mr: 2}}>
         {item.icon}
       </Box>
 

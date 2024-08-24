@@ -12,22 +12,7 @@ const PRODUCT_NAME = [
   'São Leonardo, Porto',
   'Porto Piano, Fine Tawny',
   'Portal, Fine Ruby Porto',
-  'Air Jordan XXXV PF',
-  'Nike Waffle Racer Crater',
-  'Kyrie 7 EP Sisterhood',
-  'Nike Air Zoom BB NXT',
-  'Nike Air Force 1 07 LX',
-  'Nike Air Force 1 Shadow SE',
-  'Nike Air Zoom Tempo NEXT%',
-  'Nike DBreak-Type',
-  'Nike Air Max Up',
-  'Nike Air Max 270 React ENG',
-  'NikeCourt Royale',
-  'Nike Air Zoom Pegasus 37 Premium',
-  'Nike Air Zoom SuperRep',
-  'NikeCourt Royale',
-  'Nike React Art3mis',
-  'Nike React Infinity Run Flyknit A.I.R. Chaz Bear',
+ 
 ];
 const PRODUCT_COLOR = [
   '#00AB55',
@@ -42,7 +27,7 @@ const PRODUCT_COLOR = [
 
 // ----------------------------------------------------------------------
 
-export const products = [...Array(24)].map((_, index) => {
+export const products = [...Array(8)].map((_, index) => {
   const setIndex = index + 1;
 
   return {
@@ -59,6 +44,6 @@ export const products = [...Array(24)].map((_, index) => {
       (setIndex === 23 && PRODUCT_COLOR.slice(4, 6)) ||
       (setIndex === 24 && PRODUCT_COLOR.slice(5, 6)) ||
       PRODUCT_COLOR,
-    status: sample(['sale', 'new', '', '']),
+    status: sample(['tinto', 'rose', 'branco', 'verde ']),
   };
 });

@@ -42,7 +42,7 @@ export default function ShopProductCard({ product }) {
         position: 'absolute',
         top: 0,
         left: 0,
-        borderRadius: 'inherit',
+        borderRadius: 'inherit'
       }}
     />
   );
@@ -65,7 +65,19 @@ export default function ShopProductCard({ product }) {
   );
 
   return (
-    <Card>
+    <Card
+      sx={{
+        overflow: 'hidden',
+        borderRadius: 1,
+        backgroundColor: "#FFF",
+        transition: 'box-shadow 0.1s ease-in-out', // Smooth transition for box shadow
+        '&:hover': {
+          boxShadow: 8,
+          transform: 'scale(1.05)',
+          transition: '0.1s ease-in-out',
+          cursor: 'pointer' // Increase shadow on hover
+        },
+      }}>
       <Box sx={{ pt: '100%', position: 'relative', overflow: 'hidden', borderRadius: 1 }}>
         {product.status && renderStatus}
 

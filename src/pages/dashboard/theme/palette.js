@@ -6,7 +6,7 @@ import { alpha } from '@mui/material/styles';
 
 export const grey = {
   0: '#FFFFFF',
-  100: '#F9FAFB',
+  100: '#FFF9F5',
   200: '#F4F6F8',
   300: '#DFE3E8',
   400: '#C4CDD5',
@@ -20,7 +20,7 @@ export const grey = {
 export const primary = {
   lighter: '#D0ECFE',
   light: '#73BAFB',
-  main: '#1877F2',
+  main: '#5151A8',
   dark: '#0C44AE',
   darker: '#042174',
   contrastText: '#FFFFFF',
@@ -107,7 +107,7 @@ export function palette() {
     mode: 'light',
     text: {
       primary: grey[800],
-      secondary: grey[600],
+      secondary: "#FCD2D8",
       disabled: grey[500],
     },
     background: {
