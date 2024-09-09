@@ -3,8 +3,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import {jwtDecode} from 'jwt-decode';
 import Iconify from '../../../components/iconify';
 
@@ -18,7 +16,6 @@ import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
 import WMB from '../whatsinmybottle.png'
-import { Height } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
 
@@ -35,15 +32,17 @@ export default function AppView() {
     try {
       const decodedToken = jwtDecode(access_token);
       const currentTime = Date.now() / 1000; // Convert to seconds
-
+      
+      if(decodedToken.company_id && decodedToken.username){
+        localStorage.setItem('username', decodedToken.username)
+        localStorage.setItem('company_id', decodedToken.company_id)
+      }
       if (decodedToken.exp < currentTime) {
         // Token is expired
         localStorage.removeItem('access_token');
         navigate('/auth/login');
-      } else {
-        console.log('Token is valid:', decodedToken);
-        // Continue to render dashboard content
       }
+      
     } catch (error) {
       console.error('Invalid token:', error);
       localStorage.removeItem('access_token');

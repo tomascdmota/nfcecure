@@ -6,3 +6,15 @@
     font-style: normal;
   }
   
+  @font-face {
+    font-family: 'Mona Sans';
+    src:
+      url('MonaSansVF-Regular.woff2') format('woff2 supports variations'),
+      url('MonaSansVF-Regular.woff2') format('woff2-variations');
+    font-weight: 650 900;
+    font-stretch: 75% 125%;
+  }
+  
+  html {
+    font-family: 'Mona Sans';
+  }

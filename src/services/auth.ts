@@ -15,7 +15,7 @@ interface LogoutResponse {
 // Function to authenticate user
 const login = async (username: string, password: string): Promise<LoginResponse> => {
   try {
-    const response = await axios.post<LoginResponse>(`${BASE_URL}/login`, { username, password });
+    const response = await axios.post<LoginResponse>(`${BASE_URL}/auth/login`, { username, password });
     return response.data;
   } catch (error) {
     console.error('Login Error:', error);

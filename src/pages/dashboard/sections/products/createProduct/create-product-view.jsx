@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -16,6 +18,10 @@ import {
 import { styled } from '@mui/system';
 import Iconify from '../../../components/iconify';
 import ProductPreview from './ProductPreview'; // Import the ProductPreview component
+import createProduct from "../../../../../services/create_product"
+
+
+const company_id = localStorage.getItem('company_id')
 
 // Styled Box for image preview
 const ImagePreview = styled(Box)(({ theme }) => ({
@@ -52,6 +58,7 @@ const PreviewContainer = styled(Box)({
 });
 
 export default function NewProductForm() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     image: null,
     name: '',
@@ -78,6 +85,7 @@ export default function NewProductForm() {
     }
   };
 
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -86,9 +94,35 @@ export default function NewProductForm() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form submitted:', formData);
+    
+
+    // Construct the product data
+    const productData = {
+      name: formData.name,
+      description: formData.description,
+      varieties: formData.varieties,
+      region: formData.region,
+      alcoholContent: formData.alcoholContent,
+      format: formData.format,
+      grapes: formData.grapes,
+      servingTemp: formData.servingTemp,
+      taste: formData.taste,
+      image: formData.image,
+      company_id: company_id
+    };
+
+    try {
+      // Assuming createProduct is a function that sends the data to the server
+      const responseData = await createProduct(productData);
+
+      if (responseData) {
+        navigate('/dashboard/products');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleCancel = () => {
@@ -208,11 +242,11 @@ export default function NewProductForm() {
               <Typography gutterBottom>Alcohol Content (% ABV)</Typography>
               <Slider
                 name="alcoholContent"
-                value={formData.alcohol_content}
+                value={formData.alcoholContent}
                 onChange={(e, value) =>
                   setFormData((prevData) => ({
                     ...prevData,
-                    alcohol_content: value,
+                    alcoholContent: value,
                   }))
                 }
                 valueLabelDisplay="auto"
@@ -250,11 +284,11 @@ export default function NewProductForm() {
               <Typography gutterBottom>Serving Temperature (°C)</Typography>
               <Slider
                 name="servingTemp"
-                value={formData.serving_temperature}
+                value={formData.servingTemp}
                 onChange={(e, value) =>
                   setFormData((prevData) => ({
                     ...prevData,
-                    serving_temperature: value,
+                    servingTemp: value,
                   }))
                 }
                 valueLabelDisplay="auto"
@@ -286,6 +320,7 @@ export default function NewProductForm() {
                     flex: 1,
                   }}
                   type="submit"
+                  onClick={handleSubmit}
                 >
                   Create Product
                 </Button>

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -16,14 +15,14 @@ import { RouterLink } from '../../routes/components';
 import { useResponsive } from '../../hooks/use-responsive';
 
 import { account } from '../../_mock/account';
-  
-import WMBLogo from '/src/pages/dashboard/layouts/dashboard/D-05.png';
-import drawing from '/src/pages/dashboard/layouts/dashboard/E-04.png'
+
 import Scrollbar from '../../components/scrollbar';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
-import './fonts.css'
+import SvgColor from '../../components/svg-color';
+
+import './fonts.css';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +31,9 @@ export default function Nav({ openNav, onCloseNav }) {
 
   const upLg = useResponsive('up', 'lg');
 
+  const icon = (name) => (
+    <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+  );
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -49,57 +51,38 @@ export default function Nav({ openNav, onCloseNav }) {
         display: 'flex',
         borderRadius: 1.5,
         alignItems: 'center',
-        color:"white",
-        bgcolor: (theme) => alpha("#661D37", 0.32),
+        color: "white",
+        bgcolor: (theme) => alpha("#F1F1F1", 1),
       }}
     >
       <Avatar src={account.photoURL} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle1" sx={{color:"text.secondary"}}>{account.displayName}</Typography>
+        <Typography variant="subtitle2" sx={{ color: "#0C0C0C", fontFamily:"Mona sans" }}>{account.displayName}</Typography>
 
-        <Typography variant="body1" sx={{ color: '#4C1B31' }}>
-          {account.role}
-        </Typography>
       </Box>
     </Box>
   );
 
   const renderMenu = (
-        
-              
-      <Stack component="nav" spacing={1.2} sx={{ px: 3 }}>
+    <Stack component="nav" spacing={1} sx={{ px: 3 }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
       ))}
     </Stack>
   );
 
-  const renderUpgrade = (
-    <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-      <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-        <Box
-          component="img"
-          src={drawing}
-          sx={{ width: 150, position: 'absolute', top: -50 }}
+  const renderFooterItems = (
+    <Box sx={{ px: 2.5, pb: 3, mt: 2 }}>
+      <Stack alignItems="center" spacing={2} sx={{ pt: 3, borderRadius: 2, position: 'relative' }}>
+       
+        <NavItem
+          item={{
+            title: 'Documentation',
+            path: '/dashboard/documentation',
+            icon: icon("ic_documentation"), // Documentation icon
+          }}
         />
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">Get more?</Typography>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-            From only $69
-          </Typography>
-        </Box>
-
-        <Button
-          href="https://material-ui.com/store/items/minimal-dashboard/"
-          target="_blank"
-          variant="contained"
-          color="inherit"
-        >
-          Upgrade to Pro
-        </Button>
       </Stack>
     </Box>
   );
@@ -108,7 +91,7 @@ export default function Nav({ openNav, onCloseNav }) {
     <Scrollbar
       sx={{
         height: 1,
-        backgroundColor: "#822341",
+        backgroundColor: "#FAFAFA",
         '& .simplebar-content': {
           height: 1,
           display: 'flex',
@@ -116,20 +99,13 @@ export default function Nav({ openNav, onCloseNav }) {
         },
       }}
     >
-      <Box
-        component="img"
-        src={WMBLogo}
-        alt="WMB Logo"
-        sx={{ mt: 3, ml: 10, width: '120px', height: 'auto' }}
-      />
-
       {renderAccount}
 
       {renderMenu}
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {renderUpgrade}
+      {renderFooterItems}
     </Scrollbar>
   );
 
@@ -138,7 +114,6 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
-        
       }}
     >
       {upLg ? (
@@ -186,30 +161,31 @@ function NavItem({ item }) {
       component={RouterLink}
       href={item.path}
       sx={{
-        minHeight: { xs: 20, sm: 25, md: 30 }, // Smaller height on small screens
-        borderRadius: { xs: '40px', sm: '60px', md: '80px' }, // Smaller radius on small screens
-        typography: { xs: 'body3', sm: 'body2' }, // Smaller font on smaller screens
-        color: '#822341',
-        textTransform: "uppercase",
-        fontWeight: "bold",
-        fontFamily: 'Montserrat-Bold !important', // Apply Montserrat-Bold font
-        backgroundColor: "#FFDCE4",
+        minHeight: { xs: 20, sm: 25, md: 30 },
+        borderRadius: { xs: '20px', sm: '20px', md: '5px' },
+        typography: { xs: 'body3', sm: 'body2' },
+        color: '#595959',
+        mt:5,
+        backgroundColor: "#FAFAFA",
+        textTransform: "capitalize",
+        fontWeight: "bolder",
+        fontFamily: 'Mona sans !important ',
         '&:hover': {
-          color: "#822341",
-          backgroundColor: "#EAB9C8",
+          color: "#000",
+          backgroundColor: "#F1F1F1",
         },
         ...(active && {
-          color: 'primary.main',
+          color: '#000',
           fontWeight: 'fontWeightSemiBold',
-          bgcolor: (theme) => alpha('#DADAF7', 1),
+          bgcolor: (theme) => alpha('#F1F1F1', 1),
           '&:hover': {
-            color: '#FFF9F5',
-            bgcolor: (theme) => alpha("#DADAF7", 0.16),
+            color: '#000',
+            bgcolor: (theme) => alpha("#F1F1F1", 1),
           },
         }),
       }}
     >
-      <Box component="span" sx={{ width: 32, height: 32, mr: 2}}>
+      <Box component="span" sx={{ width: 32, height: 32, mr: 2 }}>
         {item.icon}
       </Box>
 

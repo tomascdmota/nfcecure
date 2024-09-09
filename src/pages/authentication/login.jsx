@@ -14,22 +14,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios'
 import {jwtDecode} from 'jwt-decode';
 import { login } from '../../services/auth'; // Adjust the path as necessary
-
-
-
-
-
-
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://nfcecure.com/" target="_blank">
-        NFCecure
+      <Link color="inherit" href="https://whatsinmybottle.com/" target="_blank">
+        What's in my bottle
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

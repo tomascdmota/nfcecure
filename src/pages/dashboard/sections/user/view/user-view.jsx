@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -36,6 +37,7 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const navigate = useNavigate()
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -86,6 +88,10 @@ export default function UserPage() {
     setFilterName(event.target.value);
   };
 
+  const handleNewUserClick = () => {
+    navigate('./add')
+  }
+
   const dataFiltered = applyFilter({
     inputData: users,
     comparator: getComparator(order, orderBy),
@@ -95,16 +101,20 @@ export default function UserPage() {
   const notFound = !dataFiltered.length && !!filterName;
 
   return (
-    <Container>
+    <Container sx={{minWidth:"90%", minHeight:"80%"}}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Stack alignItems="start">
+        <Typography variant="h4" fontFamily={'Mona sans'}>User Management</Typography>
+        <Typography variante="h5" fontFamily={'Montserrat-Regular'}>Manage your team members and their permissions here.</Typography>
+        </Stack >
+     
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+        <Button variant="contained" color="inherit" onClick={handleNewUserClick} startIcon={<Iconify icon="eva:plus-fill" />}>
           New User
         </Button>
       </Stack>
 
-      <Card>
+      <Card >
         <UserTableToolbar
           numSelected={selected.length}
           filterName={filterName}

@@ -46,7 +46,11 @@ function Product() {
 
     fetchData();
   }, []);
-
+  useEffect(() => {
+    if (productData) {
+      document.title = `${productData.name}`;
+    }
+  }, [productData]);
   useEffect(() => {
     const handleScroll = () => {
       if (navbarRef.current && targetSectionRef.current) {
@@ -71,6 +75,7 @@ function Product() {
 
   return (
     <div className="app-container">
+      <title>aaa</title>
       {/* Header with burger menu and logo */}
       <AppBar
       ref={navbarRef}

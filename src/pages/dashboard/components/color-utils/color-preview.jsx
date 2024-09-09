@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
-export default function ColorPreview({ colors, limit = 3, sx }) {
-  const renderColors = colors.slice(0, limit);
-
+export default function ColorPreview({ colors = [], limit = 3, sx }) {
+  const renderColors = colors.slice(0, limit); // Always safe now
   const remainingColor = colors.length - limit;
 
   return (

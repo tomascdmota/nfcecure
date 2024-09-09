@@ -6,7 +6,9 @@ import Product from './pages/product/product.jsx'; // Make sure to use correct i
 import Register from './pages/authentication/register'; // Example additional page
 import Login from './pages/authentication/login'; // Example additional page
 import Dashboard from './pages/dashboard/app.jsx'; // Example additional page
+import LandingPage from './pages/LandingPage/Hero/hero.jsx';
 import { HelmetProvider } from 'react-helmet-async';
+
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
-        <Route path="/" element={<Dashboard />}/> 
+        <Route path="/" element={<LandingPage />}/> 
         {/* Change to the landing page instead of dashboard */}
       </Routes>
     </Router>

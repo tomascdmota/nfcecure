@@ -1,23 +1,23 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CreateProductView } from '../sections/products/createProduct';
+import { AddUserView } from '../sections/user/NewUser';
 import BreadcrumbsComponent from '../components/breadcrumb/breadcrumb.jsx'
-
 
 // ----------------------------------------------------------------------
 
-export default function CreateProductPage() {
+export default function AddUserPage() {
+
   const breadcrumbPaths = [
-    { label: 'Products', href: '/dashboard/products' },
-    { label: 'Add User', href: '/dashboard/products/add' }
+    { label: 'Users', href: '/dashboard/user' },
+    { label: 'Add User', href: '/dashboard/user/create' }
   ];
   return (
     <>
       <Helmet>
-        <title> Add Product | NFCecure </title>
+        <title> Add User</title>
       </Helmet>
       <BreadcrumbsComponent paths={breadcrumbPaths} />
-      <CreateProductView />
+      <AddUserView />
     </>
   );
 }
