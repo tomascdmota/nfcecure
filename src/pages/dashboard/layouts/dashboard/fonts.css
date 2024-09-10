@@ -18,3 +18,8 @@
   html {
     font-family: 'Mona Sans';
   }
+
+@font-face {
+  font-family: 'Montserrat-variable';
+  src: url('Montserrat-variable.ttf');
+}

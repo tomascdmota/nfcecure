@@ -18,7 +18,7 @@ const navConfig = [
     icon: icon('ic_bottle'),
   },
   {
-    title: 'user management',
+    title: 'people management',
     path: '/dashboard/user',
     icon: icon('ic_user'),
   },

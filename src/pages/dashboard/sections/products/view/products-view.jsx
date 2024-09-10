@@ -23,7 +23,6 @@ export default function ProductsView() {
   const [companyId, setCompanyId] = useState('');
   const [products, setProducts] = useState([]);
 
-  const access_token = localStorage.getItem('access_token')
   const navigateToProduct = (product_id) => {
     window.open(`/product/${product_id}`, '_blank');
   };

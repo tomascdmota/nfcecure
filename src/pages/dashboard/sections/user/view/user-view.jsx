@@ -104,7 +104,7 @@ export default function UserPage() {
     <Container sx={{minWidth:"90%", minHeight:"80%"}}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Stack alignItems="start">
-        <Typography variant="h4" fontFamily={'Mona sans'}>User Management</Typography>
+        <Typography variant="h4" fontFamily={'Mona sans'}>People Management</Typography>
         <Typography variante="h5" fontFamily={'Montserrat-Regular'}>Manage your team members and their permissions here.</Typography>
         </Stack >
      
@@ -133,10 +133,10 @@ export default function UserPage() {
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
                   { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
+                  { id: 'role', label: 'Position' },
+                  { id: 'company', label: 'Department' },
+                  { id: 'status', label: 'Permissions' },
                   { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
                   { id: '' },
                 ]}
               />

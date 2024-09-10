@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import  { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Box, Typography, AppBar, Toolbar, IconButton, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ProductCarousel from './components/ProductCard/productcard.jsx';
 import TasteIndicator from './components/TasteIndicator/TasteIndicator.jsx';
-
 import exampleImage from './vinho.png'; 
 import logo from './assets/logobranco.png';
 import logocor from './assets/logocor.png'
-import backgroundImage from './bg.jpg'; // Import your background image
 import uvabranca from './assets/uvabranca.png'
 import uvarose from './assets/uvarose.png'
 import uvatinto from './assets/uvatinto.png'

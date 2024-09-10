@@ -57,13 +57,12 @@ export default function UserTableRow({
 
         <TableCell >{company}</TableCell>
 
-      
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
         <TableCell>
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
         </TableCell>
-
+        
+        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />
