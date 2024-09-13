@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
 import './product.scss'; // Ensure Tailwind CSS is included
 import ProductCarousel from './components/ProductCard/productcard.jsx';
 import TasteIndicator from './components/TasteIndicator/TasteIndicator.jsx';

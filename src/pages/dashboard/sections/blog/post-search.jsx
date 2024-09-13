@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 
-import Iconify from '../../../components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -39,10 +38,7 @@ export default function PostSearch({ posts }) {
             ...params.InputProps,
             startAdornment: (
               <InputAdornment position="start">
-                <Iconify
-                  icon="eva:search-fill"
-                  sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled' }}
-                />
+             
               </InputAdornment>
             ),
           }}

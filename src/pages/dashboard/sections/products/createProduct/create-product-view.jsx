@@ -15,7 +15,7 @@ import {
   Slider,
   IconButton,
 } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
 import Iconify from '../../../components/iconify';
 import ProductPreview from './ProductPreview'; // Import the ProductPreview component
 import createProduct from "../../../../../services/create_product"

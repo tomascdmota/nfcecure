@@ -14,7 +14,7 @@ export default function CreateProductPage() {
   return (
     <>
       <Helmet>
-        <title> Add Product | NFCecure </title>
+        <title> Add Product </title>
       </Helmet>
       <BreadcrumbsComponent paths={breadcrumbPaths} />
       <CreateProductView />
