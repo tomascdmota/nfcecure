@@ -20,7 +20,6 @@ const URL = import.meta.env.VITE_DEV_URL;
 export default function ProductsView() {
   const navigate = useNavigate();
   const [openFilter, setOpenFilter] = useState(false);
-  const [companyId, setCompanyId] = useState('');
   const [products, setProducts] = useState([]);
 
   const navigateToProduct = (product_id) => {
@@ -37,25 +36,11 @@ export default function ProductsView() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        console.error('No token found');
-        navigate('/auth/login')
-      }
 
       try {
-        const decodedToken = jwtDecode(token);
-        const company_id = decodedToken.company_id;
 
-        if (!company_id) {
-          console.error('No companyId found in token');
-          return;
-        }
-
-        setCompanyId(company_id);
-
-        const products_response = await axios.get(`${URL}/api/products/company/${company_id}`, {headers:{'Content-Type': "application/json", 'Authorization': `Bearer ${localStorage.getItem('access_token')}`}});
-        setProducts(products_response.data);
+        const products_response = await axios.get(`${URL}/products`, {headers:{'Content-Type': "application/json", 'Authorization': `Bearer ${localStorage.getItem('access_token')}`}});
+        setProducts(products_response.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -111,11 +96,16 @@ export default function ProductsView() {
 
       <Grid container spacing={3}>
         {Array.isArray(products) && products.length > 0 ? (
-          products.map((product) => (
-            <Grid item key={String(product.id)} xs={12} sm={6} md={3} onClick={()=> navigateToProduct(product.id)} target="_blank">
-              <ProductCard product={product} onClick={()=> navigateToProduct(product.id)} />
-            </Grid>
-          ))
+          products.map((product) => {
+            // Construct the full image URL
+            const imageUrl = `${URL}${product.image_path}`;
+            
+            return (
+              <Grid item key={String(product.id)} xs={12} sm={6} md={3} onClick={() => navigateToProduct(product.id)} target="_blank">
+                <ProductCard product={{ ...product, imageUrl }} onClick={() => navigateToProduct(product.id)} />
+              </Grid>
+            );
+          })
         ) : (
           <Grid item xs={12}>
             <Typography variant="h6" color="textSecondary">

@@ -30,11 +30,14 @@ export default function ShopProductCard({ product }) {
     </Label>
   );
 
+  // Construct the full image URL
+  const imageUrl = `${import.meta.env.VITE_DEV_URL}${product.image_path}`; // Add '/uploads/products' prefix
+
   const renderImg = (
     <Box
       component="img"
       alt={product.name}
-      src={product.cover}
+      src={imageUrl}  // Use the constructed image URL
       sx={{
         width: '100%',
         height: '100%',

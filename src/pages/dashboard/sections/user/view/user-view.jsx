@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 import Card from '@mui/material/Card';
@@ -11,8 +11,6 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from '../../../_mock/user';
-
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 
@@ -22,29 +20,40 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+import getUsers from '../../../../../services/get_users';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+
   const [page, setPage] = useState(0);
-
   const [order, setOrder] = useState('asc');
-
   const [selected, setSelected] = useState([]);
-
   const [orderBy, setOrderBy] = useState('name');
-
   const [filterName, setFilterName] = useState('');
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            const response = await getUsers();
+            const fetchedUsers = Array.isArray(response.users) ? response.users : [response.users];
+            setUsers(fetchedUsers);
+        } catch (err) {
+            console.error("Failed to fetch users:", err);
+            setError(err); 
+        }
+    };
+    fetchUsers();
+  }, []);
+
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
-    if (id !== '') {
-      setOrder(isAsc ? 'desc' : 'asc');
-      setOrderBy(id);
-    }
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(id);
   };
 
   const handleSelectAllClick = (event) => {
@@ -89,8 +98,8 @@ export default function UserPage() {
   };
 
   const handleNewUserClick = () => {
-    navigate('./add')
-  }
+    navigate('./add');
+  };
 
   const dataFiltered = applyFilter({
     inputData: users,
@@ -101,20 +110,19 @@ export default function UserPage() {
   const notFound = !dataFiltered.length && !!filterName;
 
   return (
-    <Container sx={{minWidth:"90%", minHeight:"80%"}}>
+    <Container sx={{ minWidth: "90%", minHeight: "80%" }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Stack alignItems="start">
-        <Typography variant="h4" fontFamily={'Mona sans'}>People Management</Typography>
-        <Typography variante="h5" fontFamily={'Montserrat-Regular'}>Manage your team members and their permissions here.</Typography>
-        </Stack >
-     
+          <Typography variant="h4" fontFamily={'Mona sans'}>People Management</Typography>
+          <Typography variant="h5" fontFamily={'Montserrat-Regular'}>Manage your team members and their permissions here.</Typography>
+        </Stack>
 
         <Button variant="contained" color="inherit" onClick={handleNewUserClick} startIcon={<Iconify icon="eva:plus-fill" />}>
           New User
         </Button>
       </Stack>
 
-      <Card >
+      <Card>
         <UserTableToolbar
           numSelected={selected.length}
           filterName={filterName}
@@ -146,11 +154,11 @@ export default function UserPage() {
                   .map((row) => (
                     <UserTableRow
                       key={row.id}
-                      name={row.name}
-                      role={row.role}
-                      status={row.status}
-                      company={row.company}
-                      avatarUrl={row.avatarUrl}
+                      name={row.username || row.name}   // Mapping 'username' to 'name'
+                      role={row.position || row.role}   // Mapping 'position' to 'role'
+                      status={row.permissions || row.status}  // Mapping 'permissions' to 'status'
+                      company={row.department || row.company} // Mapping 'department' to 'company'
+                      avatarUrl={row.avatarUrl}  
                       isVerified={row.isVerified}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}

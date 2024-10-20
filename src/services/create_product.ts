@@ -1,31 +1,24 @@
-import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios'
+import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5225/products'
+const BASE_URL = 'http://localhost:4001/products';
 
 interface CreateProductResponse {
     status?: string;
 }
 
-interface Product {
-    name: string;
-    description: string;    
-    varieties: string;
-    region: string;
-    alcohol_content: number;
-    format: string;
-    grapes: string;
-    serving_temperature: string;
-    taste: string;
-}
-
-const createProduct = async (product: Product): Promise<CreateProductResponse> => {
-    try{
-        const response = await axios.post<CreateProductResponse>(`${BASE_URL}/createproduct`,product,{headers:{'Content-Type': "application/json", 'Authorization': `Bearer ${localStorage.getItem('access_token')}`}})
-        return response.data
-    }catch(error){
-        console.log("Error creating product: ", error)
-        throw error
+// Update createProduct to accept FormData directly
+const createProduct = async (formData: FormData): Promise<CreateProductResponse> => {
+    try {
+        const response = await axios.post<CreateProductResponse>(`${BASE_URL}/add`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log("Error creating product: ", error);
+        throw error;
     }
 };
 

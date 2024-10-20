@@ -98,7 +98,7 @@ function Product() {
           justifyContent: 'space-between',
           padding: 2,
           paddingTop: isMobile ? 10 : 3,
-          backgroundImage: `url(https://www.esporao.com/wp-content/uploads/2021/12/DJI_0011-2-800x450.jpg)`, // Set the background image
+          backgroundImage: `url(https://images.pexels.com/photos/21393/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)`, // Set the background image
           backgroundSize: 'cover', // Ensure the background image covers the entire area
           backgroundPosition: 'center', // Center the background image
           position: 'relative', // Relative position for the floating header
@@ -365,7 +365,7 @@ function Product() {
       </Container>
         
       <footer className="text-center mt-8">
-        <Typography variant="h6" className="text-lg">What's in my bottle? Conheça suas bebidas</Typography>
+        <Typography variant="h6" className="text-lg">What's in my bottle? Conheça as suas bebidas</Typography>
       </footer>
     </div>
   );

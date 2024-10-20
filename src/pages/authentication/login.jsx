@@ -25,25 +25,15 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem("access_token")
 
-    if (token) {
-      try {
-        // Decode token to get user information
-        const decodedToken = jwtDecode(token);
-
-        if (decodedToken.user_id) {
-          navigate('/dashboard');
-        } else {
-          throw new Error('User ID not found in token');
-        }
-      } catch (error) {
-        // Handle token decoding errors
-        console.error('Invalid token:', error);
-        localStorage.removeItem('access_token'); // Remove invalid token
-      }
+    if(accessToken){
+      navigate('/dashboard');
     }
+  
+   
   }, [navigate]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,12 +53,12 @@ export default function SignIn() {
       // Send POST request using the TypeScript service
       const responseData = await login(requestData.username, requestData.password);
       
-      if (responseData.access_token) {
-        localStorage.setItem('access_token', responseData.access_token);
+      if (responseData && responseData.message === 'Login successful') {
+        localStorage.setItem("access_token", responseData.access_token)
         navigate('/dashboard');
-      } else {
-        console.error('No access token found in response');
-      }
+    } else {
+        console.error('Login failed:', responseData.message);
+    }
     } catch (error) {
       // Handle errors
       console.error('Error:', error.response ? error.response.data : error.message);

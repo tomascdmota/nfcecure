@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
-import {jwtDecode} from 'jwt-decode';
 import Iconify from '../../../components/iconify';
 
 import AppTasks from '../app-tasks';
@@ -16,39 +15,42 @@ import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
 import WMB from '../whatsinmybottle.png'
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
   const navigate = useNavigate();
-  const access_token = localStorage.getItem('access_token');
 
-  useEffect(() => {
-    if (!access_token) {
-      navigate('/auth/login');
-      return;
-    }
+  // useEffect(() => {
+  //   const checkTokenExpiration = async () => {
+  //     const accessToken = localStorage.getItem('access_token');
+  
+  //     if (!accessToken) {
+  //       navigate('/auth/login');
+  //       return;
+  //     }
+  
+  //     try {
+  //       const decodedToken = jwtDecode(accessToken);
+  //       const currentTime = Date.now() / 1000; // Convert to seconds
+  
+  //       if (decodedToken.exp < currentTime) {
+  
+  //         // Call the refresh endpoint to get a new access token
+  //         const response = await axios.post(`http://localhost:4001/auth/refresh`, {"Authentication": `Bearer ${accessToken}`}, { withCredentials: true });
+  
+  //         localStorage.setItem('access_token', response.data.access_token);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error decoding or refreshing token:', error);
+  //       navigate('/auth/login');
+  //     }
+  //   };
+  
+  //   //checkTokenExpiration();
+  // }, []);
 
-    try {
-      const decodedToken = jwtDecode(access_token);
-      const currentTime = Date.now() / 1000; // Convert to seconds
-      
-      if(decodedToken.company_id && decodedToken.username){
-        localStorage.setItem('username', decodedToken.username)
-        localStorage.setItem('company_id', decodedToken.company_id)
-      }
-      if (decodedToken.exp < currentTime) {
-        // Token is expired
-        localStorage.removeItem('access_token');
-        navigate('/auth/login');
-      }
-      
-    } catch (error) {
-      console.error('Invalid token:', error);
-      localStorage.removeItem('access_token');
-      navigate('/auth/login');
-    }
-  }, [access_token, navigate]);
 
 
   return (

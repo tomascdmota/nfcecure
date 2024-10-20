@@ -13,15 +13,12 @@ import {
   InputLabel,
   FormControl,
   Slider,
-  IconButton,
+  LinearProgress, // Import LinearProgress for the progress bar
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Iconify from '../../../components/iconify';
 import ProductPreview from './ProductPreview'; // Import the ProductPreview component
 import createProduct from "../../../../../services/create_product"
-
-
-const company_id = localStorage.getItem('company_id')
 
 // Styled Box for image preview
 const ImagePreview = styled(Box)(({ theme }) => ({
@@ -58,33 +55,30 @@ const PreviewContainer = styled(Box)({
 });
 
 export default function NewProductForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     image: null,
     name: '',
     description: '',
     varieties: '',
     region: '',
-    alcoholContent: 12,
+    alcohol_content: 12,
     format: '',
     grapes: '',
-    servingTemp: 8,
+    serving_temperature: 8,
     taste: '',
   });
+  const [uploadProgress, setUploadProgress] = useState(0); // State to track upload progress
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData((prevData) => ({
-        ...prevData,
-        image: imageUrl,
-      }));
-    } else {
-      alert('Please select a valid image file.');
+    if (file) {
+      setFormData({
+        ...formData,
+        image: file,
+      });
     }
   };
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -96,26 +90,10 @@ export default function NewProductForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-
-    // Construct the product data
-    const productData = {
-      name: formData.name,
-      description: formData.description,
-      varieties: formData.varieties,
-      region: formData.region,
-      alcoholContent: formData.alcoholContent,
-      format: formData.format,
-      grapes: formData.grapes,
-      servingTemp: formData.servingTemp,
-      taste: formData.taste,
-      image: formData.image,
-      company_id: company_id
-    };
 
     try {
-      // Assuming createProduct is a function that sends the data to the server
-      const responseData = await createProduct(productData);
+      // Send FormData to the backend via the createProduct function
+      const responseData = await createProduct(formData, setUploadProgress); // Pass progress callback
 
       if (responseData) {
         navigate('/dashboard/products');
@@ -132,10 +110,10 @@ export default function NewProductForm() {
       description: '',
       varieties: '',
       region: '',
-      alcoholContent: 12,
+      alcohol_content: 12,
       format: '',
       grapes: '',
-      servingTemp: 8,
+      serving_temperature: 8,
       taste: '',
     });
     window.history.back();
@@ -144,27 +122,7 @@ export default function NewProductForm() {
   return (
     <Container maxWidth="lg">
       <Box sx={{ position: 'relative', paddingTop: '40px' }}>
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 1,
-            left: 1, // Adjusted to ensure proper placement on mobile
-            zIndex: 10,
-          }}
-        >
-          <IconButton
-            onClick={() => window.history.back()}
-            sx={{
-              backgroundColor: '#1877F2',
-              color: "white",
-              '&:hover': {
-                backgroundColor: '#0C44AE',
-              },
-            }}
-          >
-            <Iconify icon="eva:arrow-back-outline" />
-          </IconButton>
-        </Box>
+
         <Typography variant="h4" sx={{ mb: 5 }}>
           Create New Product
         </Typography>
@@ -177,7 +135,7 @@ export default function NewProductForm() {
                 <ImagePreview
                   sx={{
                     backgroundImage: formData.image
-                      ? `url(${formData.image})`
+                      ? `url(${URL.createObjectURL(formData.image)})`
                       : 'none',
                   }}
                 >
@@ -241,12 +199,12 @@ export default function NewProductForm() {
               />
               <Typography gutterBottom>Alcohol Content (% ABV)</Typography>
               <Slider
-                name="alcoholContent"
-                value={formData.alcoholContent}
+                name="alcohol_content"
+                value={formData.alcohol_content}
                 onChange={(e, value) =>
                   setFormData((prevData) => ({
                     ...prevData,
-                    alcoholContent: value,
+                    alcohol_content: value,
                   }))
                 }
                 valueLabelDisplay="auto"
@@ -283,12 +241,12 @@ export default function NewProductForm() {
               />
               <Typography gutterBottom>Serving Temperature (°C)</Typography>
               <Slider
-                name="servingTemp"
-                value={formData.servingTemp}
+                name="serving_temperature"
+                value={formData.serving_temperature}
                 onChange={(e, value) =>
                   setFormData((prevData) => ({
                     ...prevData,
-                    servingTemp: value,
+                    serving_temperature: value,
                   }))
                 }
                 valueLabelDisplay="auto"
@@ -316,7 +274,6 @@ export default function NewProductForm() {
                 <Button
                   variant="contained"
                   sx={{
-           
                     flex: 1,
                   }}
                   type="submit"
@@ -339,6 +296,13 @@ export default function NewProductForm() {
                   Cancel
                 </Button>
               </Box>
+
+              {/* Progress Indicator */}
+              {uploadProgress > 0 && (
+                <Box sx={{ mt: 2 }}>
+                  <LinearProgress variant="determinate" value={uploadProgress} />
+                </Box>
+              )}
             </form>
           </Grid>
           <Grid item xs={12} md={6}>

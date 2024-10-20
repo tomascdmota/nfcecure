@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5225';
+const BASE_URL = 'http://localhost:4001';
+
+const instance = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true, // This is important to send cookies with requests
+});
 
 // Define types for the responses
 interface LoginResponse {
@@ -15,7 +20,7 @@ interface LogoutResponse {
 // Function to authenticate user
 const login = async (username: string, password: string): Promise<LoginResponse> => {
   try {
-    const response = await axios.post<LoginResponse>(`${BASE_URL}/auth/login`, { username, password });
+    const response = await instance.post<LoginResponse>('/auth/login', { username, password });
     return response.data;
   } catch (error) {
     console.error('Login Error:', error);
@@ -26,7 +31,7 @@ const login = async (username: string, password: string): Promise<LoginResponse>
 // Function to logout user
 const logout = async (): Promise<LogoutResponse> => {
   try {
-    const response = await axios.post<LogoutResponse>(`${BASE_URL}/auth/logout`);
+    const response = await instance.post<LogoutResponse>('/auth/logout');
     return response.data;
   } catch (error) {
     console.error('Logout Error:', error);
